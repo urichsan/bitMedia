@@ -13,37 +13,22 @@ namespace Back.Controllers
 
     // GET api/values
     [HttpGet]
-    public IEnumerable<KeyValuePair<int, string>> Get()
-    {
-      return _data.GetAll();
-    }
+    public IEnumerable<object> Get() => _data.GetAll().Select(x=>new {Id = x.Key, Value=x.Value});
 
     // GET api/values/5
     [HttpGet("{id}")]
-    public string Get(int id)
-    {
-      return _data.Get(id);
-    }
+    public string Get(int id) => _data.Get(id);
 
     // POST api/values
     [HttpPost]
-    public void Post([FromBody] string value)
-    {
-
-    }
+    public void Post([FromBody] string value) => _data.Create(value);
 
     // PUT api/values/5
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-      _data.Update(id,value);
-    }
+    public void Put(int id, [FromBody] string value) => _data.Update(id,value);
 
     // DELETE api/values/5
     [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-      _data.Delete(id);
-    }
+    public void Delete(int id) => _data.Delete(id);
   }
 }
