@@ -1,11 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Back.Controllers
 {
+  //[DataContract]
+  //public class MyData
+  //{
+  //  [DataMember]
+  //  public int Id { get; set; }
+  //  [DataMember]
+  //  public string Value { get; set; }
+  //}
+
   [Route("api/[controller]")]
   public class ValuesController : Controller
   {
@@ -26,6 +37,10 @@ namespace Back.Controllers
     // PUT api/values/5
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value) => _data.Update(id,value);
+
+    // PATCH api/values/5 same as put
+    [HttpPatch("{id}")]
+    public void Patch(int id, [FromBody] string value) => _data.Update(id, value);
 
     // DELETE api/values/5
     [HttpDelete("{id}")]

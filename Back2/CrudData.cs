@@ -5,9 +5,9 @@ namespace Back
 {
   public class CrudData:ICrud<int,string>
   {
-    private Dictionary<int, string> _dataDictionary = new Dictionary<int, string>() { {-1,"sample"}, {-2,"sample2"} };
+    private static Dictionary<int, string> _dataDictionary = new Dictionary<int, string>(); //{ {-1,"sample"}, {-2,"sample2"} };
 
-    public void Create(string pVal) => Create(_dataDictionary.Keys.Max(x=>x)+1,pVal);
+    public void Create(string pVal) => Create(_dataDictionary.Keys.Any()?_dataDictionary.Keys.Max(x=>x)+1:0,pVal);
 
     public void Create(int pId, string pVal) => _dataDictionary.Add(pId,pVal);
 

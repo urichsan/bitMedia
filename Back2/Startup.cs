@@ -12,8 +12,23 @@ namespace Back2
 {
   public class Startup
   {
+#if DEBUG
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+#endif
     public void ConfigureServices(IServiceCollection services)
     {
+#if DEBUG
+      services.AddCors(options =>
+      {
+        options.AddPolicy(MyAllowSpecificOrigins,
+        builder =>
+        {
+          builder.WithOrigins("http://localhost:8080")
+          .AllowAnyHeader()
+          .AllowAnyMethod();
+        });
+      });
+#endif
       services.AddMvc();
     }
 
@@ -24,6 +39,9 @@ namespace Back2
         app.UseDeveloperExceptionPage();
       }
 
+#if DEBUG
+      app.UseCors(MyAllowSpecificOrigins);
+#endif
       app.UseStaticFiles();
       app.UseMvc();
     }
